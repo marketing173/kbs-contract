@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Beauty Station 입점 신청서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --sub:#555;
+    --line:#d8d8d8;
+    --line-strong:#111;
+    --bg:#f4f4f2;
+    --paper:#ffffff;
+    --accent:#0a3d62;
+    --danger:#b3261e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Noto Sans KR', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    background:var(--paper);
+    padding:48px 40px 80px;
+  }
+  h1{
+    text-align:center;
+    font-size:22px;
+    letter-spacing:2px;
+    margin:0 0 8px;
+  }
+  .doc-sub{
+    text-align:center;
+    color:var(--sub);
+    font-size:13px;
+    margin-bottom:36px;
+  }
+  h2.section{
+    font-size:16px;
+    border-bottom:2px solid var(--line-strong);
+    padding-bottom:8px;
+    margin:40px 0 16px;
+  }
+  h2.section span{
+    color:var(--accent);
+    margin-right:6px;
+  }
+  table.form-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  table.form-table td, table.form-table th{
+    border:1px solid var(--line);
+    padding:10px 12px;
+    vertical-align:middle;
+  }
+  table.form-table th{
+    background:#fafafa;
+    width:150px;
+    text-align:left;
+    font-weight:500;
+    color:var(--sub);
+  }
+  table.form-table td.static-val{
+    color:var(--ink);
+  }
+  input[type=text], input[type=email], input[type=tel], input[type=url]{
+    width:100%;
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:6px 2px;
+    font-family:inherit;
+    font-size:14px;
+    background:transparent;
+  }
+  input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=url]:focus{
+    outline:none;
+    border-bottom:1px solid var(--accent);
+  }
+  .hours-block{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .hours-day-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .hours-day-row .day-label{
+    width:44px;
+    flex:none;
+    font-size:13px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .time-select-group{
+    display:inline-flex;
+    align-items:center;
+    gap:2px;
+  }
+  .time-select-group select{
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:4px 2px;
+    font-family:inherit;
+    font-size:13px;
+    background:transparent;
+    color:var(--ink);
+  }
+  .time-select-group select:disabled{
+    color:var(--sub);
+    border-bottom-color:transparent;
+  }
+  .hours-day-row .tilde{
+    color:var(--sub);
+  }
+  .hours-day-row .off-label{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    font-size:12px;
+    color:var(--sub);
+    cursor:pointer;
+    margin-left:auto;
+  }
+  .hint{
+    display:block;
+    font-size:12px;
+    color:var(--sub);
+    margin-top:4px;
+  }
+  .radio-group{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .radio-group label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .file-input{
+    font-size:13px;
+  }
+  .notice-box{
+    background:#fafafa;
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    padding:16px 18px;
+    font-size:13px;
+    color:var(--sub);
+    margin:16px 0;
+  }
+  .notice-box ol, .notice-box ul{
+    margin:6px 0 0;
+    padding-left:18px;
+  }
+  .plain-p{
+    text-align:center;
+    margin:32px 0;
+    font-size:14px;
+  }
+  .biz-info{
+    text-align:center;
+    font-size:13px;
+    color:var(--sub);
+    margin:24px 0;
+    line-height:1.8;
+  }
+  .biz-info strong{
+    color:var(--ink);
+  }
+  .sign-block{
+    margin:36px 0 8px;
+    text-align:center;
+  }
+  .sign-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    font-size:15px;
+    margin-bottom:14px;
+  }
+  .sign-row input.fill-name{
+    display:inline-block;
+    width:180px;
+    border:none;
+    border-bottom:1px solid var(--line-strong);
+    padding:0 6px 4px;
+    text-align:center;
+    font-family:inherit;
+    font-size:15px;
+    background:transparent;
+  }
+  .sign-date{
+    font-size:13px;
+    color:var(--sub);
+    margin-bottom:10px;
+  }
+  .sign-date input[type=date]{
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:4px 2px;
+    font-family:inherit;
+    font-size:13px;
+    color:var(--sub);
+    background:transparent;
+    text-align:center;
+  }
+  .pad-wrap{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+  }
+  canvas.sigpad{
+    width:100%;
+    height:160px;
+    border:1px solid var(--line-strong);
+    background:#fff;
+    touch-action:none;
+    display:block;
+  }
+  .pad-tools{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:6px;
+  }
+  .pad-tools button{
+    font-family:inherit;
+    font-size:12px;
+    border:1px solid var(--line);
+    background:#fff;
+    padding:4px 10px;
+    cursor:pointer;
+    border-radius:3px;
+  }
+  .pad-tools button:hover{
+    border-color:var(--ink);
+  }
+  .contract{
+    font-size:13.5px;
+    color:#333;
+  }
+  .contract h3{
+    font-size:14px;
+    margin:22px 0 8px;
+  }
+  .contract p{
+    margin:8px 0;
+  }
+  .required:after{
+    content:" *";
+    color:var(--danger);
+  }
+  .submit-area{
+    margin-top:48px;
+    text-align:center;
+  }
+  #submitBtn{
+    font-family:inherit;
+    font-size:16px;
+    font-weight:700;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:16px 48px;
+    border-radius:4px;
+    cursor:pointer;
+  }
+  #submitBtn:disabled{
+    background:#aaa;
+    cursor:not-allowed;
+  }
+  #statusMsg{
+    margin-top:16px;
+    font-size:14px;
+  }
+  #statusMsg.error{ color:var(--danger); }
+  #statusMsg.ok{ color:#1b6e3c; }
+  @media (max-width:600px){
+    .page{ padding:28px 16px 60px; }
+  }
+  @media (max-width:480px){
+    h1{ font-size:18px; letter-spacing:1px; }
+    table.form-table, table.form-table tbody, table.form-table tr, table.form-table th, table.form-table td{
+      display:block;
+      width:100%;
+    }
+    table.form-table th{
+      border-bottom:none;
+      padding:10px 12px 4px;
+    }
+    table.form-table td{
+      border-top:none;
+      padding:4px 12px 12px;
+    }
+    .time-select-group select{ font-size:12px; }
+    .sign-row input.fill-name{ width:120px; }
+    #submitBtn{ width:100%; padding:16px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>K-BEAUTY STATION 입점 신청서</h1>
+  <div class="doc-sub">아래 내용을 확인하고 입력한 뒤, 신청인 서명(전자 서명)으로 제출합니다.</div>
+
+  <!-- 1. 시스템 정보 -->
+  <h2 class="section"><span>1</span>시스템 정보</h2>
+  <table class="form-table">
+    <tr><th>이용 서비스 타입</th><td class="static-val">K-beautystation 입점</td></tr>
+    <tr><th>월 이용료 (VAT 별도)</th><td class="static-val">수수료 진행 : 건당 15% 수수료 지급</td></tr>
+    <tr><th>기타 계약사항</th><td class="static-val">본 계약은 1개월 단위로 연장됩니다. (계약 연장 시 월 이용료가 변경될 수 있습니다)</td></tr>
+    <tr><th>업종</th><td class="static-val">성형외과</td></tr>
+  </table>
+
+  <!-- 2. 가입 업체 정보 -->
+  <h2 class="section"><span>2</span>가입 업체 정보</h2>
+  <table class="form-table">
+    <tr><th class="required">상호명</th><td><input type="text" id="companyName" required></td></tr>
+    <tr><th class="required">대표자명</th><td><input type="text" id="ceoName" required></td></tr>
+    <tr><th class="required">대표번호</th><td><input type="tel" id="phone" required></td></tr>
+    <tr><th class="required">이메일 (세금계산서용)</th><td><input type="email" id="email" required></td></tr>
+    <tr><th class="required">사업장 주소</th><td><input type="text" id="address" required></td></tr>
+    <tr>
+      <th>운영 시간</th>
+      <td>
+        <div class="hours-block" id="hoursBlock"></div>
+      </td>
+    </tr>
+    <tr><th class="required">담당자명</th><td><input type="text" id="managerName" required></td></tr>
+    <tr><th class="required">담당자 연락처</th><td><input type="tel" id="managerPhone" required></td></tr>
+    <tr>
+      <th>Alipay 쿠폰 제휴</th>
+      <td>
+        <div class="radio-group">
+          <label><input type="radio" name="alipayWant" value="희망"> 희망함</label>
+          <label><input type="radio" name="alipayWant" value="미희망"> 희망하지 않음</label>
+        </div>
+        <span class="hint">알리페이와 제휴해 고객 쿠폰 혜택을 제공하고 있습니다.</span>
+      </td>
+    </tr>
+    <tr id="alipayJoinedRow" style="display:none;">
+      <th>알리페이 가맹 여부</th>
+      <td>
+        <div class="radio-group">
+          <label><input type="radio" name="alipayJoined" value="가맹"> 가맹되어 있습니다</label>
+          <label><input type="radio" name="alipayJoined" value="미가입"> 아직 가입하지 않았습니다</label>
+        </div>
+        <div id="alipayPendingHint" class="hint" style="display:none; margin-top:8px;">알리페이 가맹 신청을 먼저 진행하셔야 합니다. 담당자에게 문의하시면 연결해드립니다.</div>
+      </td>
+    </tr>
+    <tr id="alipayVanRow" style="display:none;">
+      <th>이용 중인 VAN사명</th>
+      <td>
+        <select id="alipayVanSelect">
+          <option value="">선택하세요</option>
+          <option>SMARTRO</option>
+          <option>KICC</option>
+          <option>KPN</option>
+          <option>ICB</option>
+          <option>KOVAN</option>
+          <option>KOCES</option>
+          <option>GOMPAY</option>
+          <option>KSNET</option>
+          <option>금융결제원</option>
+          <option>신세계INC</option>
+          <option>나이스페이먼츠</option>
+          <option>GTF</option>
+          <option>KCP</option>
+          <option>카카오페이</option>
+          <option>아이오로라</option>
+          <option>ILK</option>
+          <option value="__custom__">목록에 없음 — 직접 입력</option>
+        </select>
+        <input type="text" id="alipayVanCustom" placeholder="VAN사명 직접 입력" style="display:none; margin-top:8px;">
+      </td>
+    </tr>
+  </table>
+
+  <div class="notice-box" style="margin-top:24px; font-weight:500; color:var(--ink);">서비스 사용을 위한 필요사항</div>
+  <table class="form-table">
+    <tr>
+      <th class="required">관리 계정 ID</th>
+      <td>
+        <input type="email" id="accountId" required>
+        <span class="hint">계정으로 사용할 메일 주소를 입력해주세요.</span>
+      </td>
+    </tr>
+    <tr>
+      <th class="required">업체명 (영어)</th>
+      <td>
+        <input type="text" id="nameEn" required>
+        <span class="hint">이 이름이 기본으로 노출됩니다. 언어별로 다르게 쓰고 싶으면 아래에 입력하세요.</span>
+      </td>
+    </tr>
+    <tr><th>업체명 (중국어 간체)</th><td><input type="text" id="nameZhCN"></td></tr>
+    <tr><th>업체명 (중국어 번체)</th><td><input type="text" id="nameZhTW"></td></tr>
+    <tr><th>업체명 (일본어)</th><td><input type="text" id="nameJa"></td></tr>
+  </table>
+
+  <!-- 3. 첨부파일 -->
+  <h2 class="section"><span>3</span>첨부파일</h2>
+  <table class="form-table">
+    <tr>
+      <th class="required">사업자 등록증</th>
+      <td>
+        <input class="file-input" type="file" id="bizRegFile" accept="image/*,.pdf" required>
+        <span class="hint">사업자 등록증 사진 또는 파일을 첨부해주세요. (10MB 이하)</span>
+      </td>
+    </tr>
+    <tr>
+      <th class="required">외국인환자 유치 의료기관 등록증</th>
+      <td>
+        <input class="file-input" type="file" id="fpRegFile" accept="image/*,.pdf" required>
+        <span class="hint">외국인환자 유치 의료기관 등록증 사진 또는 파일을 첨부해주세요. (10MB 이하)</span>
+      </td>
+    </tr>
+    <tr>
+      <th class="required">로고 이미지</th>
+      <td>
+        <input class="file-input" type="file" id="logoFile" accept="image/*,.zip" required>
+        <span class="hint">배경이 투명한 PNG 파일을 권장합니다. ZIP 파일로도 첨부 가능합니다. (10MB 이하)</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- 4. 메신저·고객문의채널 -->
+  <h2 class="section"><span>4</span>메신저·고객문의채널</h2>
+  <table class="form-table">
+    <tr>
+      <th>영어(왓츠앱)</th>
+      <td><input type="url" id="msgEnWhatsapp" placeholder="예: https://wa.me/821012345678"></td>
+    </tr>
+    <tr>
+      <th>일본(라인)</th>
+      <td><input type="url" id="msgJaLine" placeholder="예: https://line.me/R/ti/p/@계정ID"></td>
+    </tr>
+    <tr>
+      <th>중국 번체(라인)</th>
+      <td><input type="url" id="msgZhTwLine" placeholder="예: https://line.me/R/ti/p/@계정ID"></td>
+    </tr>
+    <tr>
+      <th>중국 간체(위챗)</th>
+      <td>
+        <input type="text" id="msgZhCnWechat" placeholder="WeChat ID">
+        <input class="file-input" type="file" id="wechatQrFile" accept="image/*" style="margin-top:8px;">
+        <span class="hint">위챗은 URL 연결이 없어 ID와 QR 이미지를 함께 받습니다. (10MB 이하)</span>
+      </td>
+    </tr>
+  </table>
+  <div class="notice-box">언어별로 고객 문의가 연결되는 메신저 채널입니다. 이미 운영 중인 계정이 있으면 적어주시고, 없으면 비워두셔도 됩니다.</div>
+
+  <!-- 5. 서비스 제공계약 -->
+  <h2 class="section"><span>5</span>서비스 제공계약</h2>
+  <div class="contract">
+    <h3>제 1조 [목적]</h3>
+    <p>본 계약은 “사용자”가 광고대행 서비스를 “회사”에게 위탁하고, “회사”는 이를 승낙하여 “회사”의 책임아래 성실하게 업무를 완성하도록 하는데 필요한 사항을 정함을 목적으로 한다.</p>
+
+    <h3>제 2조 [용어의 정리]</h3>
+    <p>본 계약에서 별도로 정의되지 아니한 용어는 개인정보보호법, 동법 시행령 및 시행규칙, [표준 개인정보 보호지침](행정안전부 예규 제 45호)에서 정의된 바에 따른다.</p>
+
+    <h3>제 3조 [대금청구 및 지급]</h3>
+    <p>“회사”는 “사용자”에게 세금계산서를 발행하여 해당 대금을 청구하며, “사용자”는 “회사”의 지정 계좌로 서비스 비용을 입금한다.</p>
+    <p>“회사”의 지정계좌 : 국민은행 743237-04-008969 주식회사 에잇인터네셔날</p>
+
+    <h3>제 4조 [위탁 업무의 목적 및 범위]</h3>
+    <p>“회사”는 계약이 정하는 바에 따라 “사용자”의 고객 개인정보데이터 위탁 보관 및 관리를 목적으로 다음과 같은 업무를 수행한다.</p>
+    <p>1. 고객 개인정보데이터 일체에 대한 보관 및 보안업무<br>2. 프로그램 운영 및 유지보수</p>
+
+    <h3>제 5조 [재 위탁 제한]</h3>
+    <p>1. “회사”는 “사용자”의 사전 승낙을 얻은 경우를 제외하고 “사용자”와의 계약상의 권리와 의무의 전부 또는 일부를 제3자에게 양도하거나 재 위탁할 수 없다.</p>
+    <p>2. “회사”가 재 위탁 받은 수탁 회사를 선임한 경우 “회사”는 당해 재 위탁계약서와 함께 그 사실을 즉시 “사용자”에 통보하여야 한다.</p>
+
+    <h3>제 6조 [개인정보의 안전성 확보 조치]</h3>
+    <p>“회사”는 개인정보보호법 시행령 제 30조 및 개인정보의 안전성 확보 조치 기준 고시(행정안전부 고시 제 2011-42호)에 따라 개인정보의 안전성 확보에 필요한 관리적·기술적 조치를 취하여야 한다.</p>
+
+    <h3>제 7조 [수탁자에 대한 관리·감독 등]</h3>
+    <p>1. “사용자”는 “회사”에 대하여 다음 각 호의 사항을 관리하도록 요구할 수 있으며, “회사”는 특별한 사유가 없는 한 이에 응하여야 한다.</p>
+    <p>
+      ➀ 개인정보의 처리 현황<br>
+      ➁ 개인정보의 접근 또는 접속현황<br>
+      ➂ 개인정보 접근 또는 접속 대상자<br>
+      ➃ 목적 외 이용, 제공 및 재 위탁 금지 준수여부<br>
+      ➄ 암호화 등 안전성 확보조치 이행여부<br>
+      ➅ 그 밖에 개인정보의 보호를 위하여 필요한 사항
+    </p>
+    <p>2. “사용자”는 “회사”에 대하여 제 1항 각 호의 사항에 대한 실태를 점검하여 시정을 요구할 수 있으며, “회사”는 특별한 사유가 없는 한 이행하여야 한다.</p>
+
+    <h3>제 8조 [손해배상]</h3>
+    <p>1. “회사” 또는 “회사”의 임직원 기타 “회사”의 수탁자가 이 계약에 의하여 위탁 또는 재 위탁 받은 업무를 수행함에 있어 이 계약에 따른 의무를 위반하거나 “회사” 또는 “회사”의 임직원, 기타 “회사”의 수탁자의 귀책사유로 인하여 이 계약이 해지되어 “사용자” 또는 개인정보주체 기타 제3자에게 손해가 발생한 경우 “회사”는 그 손해를 배상하여야 한다.</p>
+    <p>2. 제 1항과 관련하여 개인정보주체 기타 제3자에게 발생한 손해에 대하여 “사용자”가 전부 또는 일부를 배상한 때에는 “사용자”는 이를 “회사”에게 구상할 수 있다.</p>
+
+    <h3>제 9조 [계약의 성립]</h3>
+    <p>당사는 이 계약서가 적법하게 성립되었음을 확인하고 증명하기 위하여 “사용자”는 기명 날인한 후 “회사”에게 제출하여야 한다.</p>
+  </div>
+
+  <p class="plain-p">위와 같이 서비스 사용을 신청하며, 위 계약 내용에 동의함을 확인합니다.</p>
+
+  <div class="biz-info">
+    [에잇인터네셔날 사업자 정보]<br>
+    <strong>주식회사 에잇인터네셔날</strong> · 사업자등록번호 482-86-03391 · 대표자 김대곤
+  </div>
+
+  <!-- 서명 -->
+  <div class="sign-block">
+    <div class="sign-date"><input type="date" id="signDate"></div>
+    <div class="sign-row">신청인 : <input type="text" class="fill-name" id="signerName" required></div>
+    <div class="pad-wrap">
+      <canvas class="sigpad" id="sigPad"></canvas>
+      <div class="pad-tools"><button type="button" onclick="clearPad()">다시 서명</button></div>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button id="submitBtn" type="button" onclick="submitForm()">제출하기</button>
+    <div id="statusMsg"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script>
+  // 배포 후 Apps Script 웹앱 URL로 교체
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1AjNbq6uCBdI1aK7kM1DQPcRDht0cimbGrHCiIDiue2hc4o83w_qb03rsJxgWw8yGFQ/exec";
+  const MAX_FILE_SIZE_MB = 10;
+
+  // 서명 펜 스타일 — 필요하면 이 3개 값만 바꾸면 됨
+  const PEN_COLOR = "#1a1a1a";
+  const PEN_MIN_WIDTH = 0.6;
+  const PEN_MAX_WIDTH = 2.4;
+
+  function setupPad(canvasId){
+    const canvas = document.getElementById(canvasId);
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    function resize(){
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d").scale(ratio, ratio);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    return new SignaturePad(canvas, {
+      backgroundColor: "#ffffff",
+      penColor: PEN_COLOR,
+      minWidth: PEN_MIN_WIDTH,
+      maxWidth: PEN_MAX_WIDTH
+    });
+  }
+
+  const pad = setupPad("sigPad");
+
+  const DAYS = [
+    { code: "mon", label: "월" },
+    { code: "tue", label: "화" },
+    { code: "wed", label: "수" },
+    { code: "thu", label: "목" },
+    { code: "fri", label: "금" },
+    { code: "sat", label: "토" },
+    { code: "sun", label: "일" },
+    { code: "hol", label: "공휴일" }
+  ];
+
+  function zeroPad(n){ return String(n).padStart(2, "0"); }
+
+  function hourOptions(){
+    let html = '<option value="">--</option>';
+    for (let h = 0; h < 24; h++) html += '<option value="' + zeroPad(h) + '">' + zeroPad(h) + '</option>';
+    return html;
+  }
+  function minuteOptions(){
+    let html = '<option value="">--</option>';
+    for (let m = 0; m < 60; m += 10) html += '<option value="' + zeroPad(m) + '">' + zeroPad(m) + '</option>';
+    return html;
+  }
+
+  (function buildHoursBlock(){
+    const block = document.getElementById("hoursBlock");
+    for (const day of DAYS){
+      const row = document.createElement("div");
+      row.className = "hours-day-row";
+      row.innerHTML =
+        '<span class="day-label">' + day.label + '</span>' +
+        '<span class="time-select-group">' +
+          '<select id="hstart-h-' + day.code + '">' + hourOptions() + '</select>:' +
+          '<select id="hstart-m-' + day.code + '">' + minuteOptions() + '</select>' +
+        '</span>' +
+        '<span class="tilde">~</span>' +
+        '<span class="time-select-group">' +
+          '<select id="hend-h-' + day.code + '">' + hourOptions() + '</select>:' +
+          '<select id="hend-m-' + day.code + '">' + minuteOptions() + '</select>' +
+        '</span>' +
+        '<label class="off-label"><input type="checkbox" id="hoff-' + day.code + '"> 휴무</label>';
+      block.appendChild(row);
+      const offCb = row.querySelector('#hoff-' + day.code);
+      const selects = row.querySelectorAll('select');
+      offCb.addEventListener("change", () => {
+        selects.forEach(s => { s.disabled = offCb.checked; });
+      });
+    }
+  })();
+
+  function getDayValue(code){
+    const off = document.getElementById('hoff-' + code).checked;
+    if (off) return "휴무";
+    const sh = document.getElementById('hstart-h-' + code).value;
+    const sm = document.getElementById('hstart-m-' + code).value;
+    const eh = document.getElementById('hend-h-' + code).value;
+    const em = document.getElementById('hend-m-' + code).value;
+    if (!sh || !sm || !eh || !em) return "";
+    return sh + ":" + sm + "~" + eh + ":" + em;
+  }
+
+  function clearPad(){
+    pad.clear();
+  }
+
+  const alipayJoinedRow = document.getElementById("alipayJoinedRow");
+  const alipayVanRow = document.getElementById("alipayVanRow");
+  const alipayPendingHint = document.getElementById("alipayPendingHint");
+  const alipayVanSelect = document.getElementById("alipayVanSelect");
+  const alipayVanCustom = document.getElementById("alipayVanCustom");
+
+  document.querySelectorAll('input[name="alipayWant"]').forEach(r => {
+    r.addEventListener("change", () => {
+      const want = r.value === "희망";
+      alipayJoinedRow.style.display = want ? "" : "none";
+      if (!want) {
+        document.querySelectorAll('input[name="alipayJoined"]').forEach(j => { j.checked = false; });
+        alipayVanRow.style.display = "none";
+        alipayPendingHint.style.display = "none";
+      }
+    });
+  });
+
+  document.querySelectorAll('input[name="alipayJoined"]').forEach(r => {
+    r.addEventListener("change", () => {
+      alipayVanRow.style.display = r.value === "가맹" ? "" : "none";
+      alipayPendingHint.style.display = r.value === "미가입" ? "block" : "none";
+    });
+  });
+
+  alipayVanSelect.addEventListener("change", () => {
+    alipayVanCustom.style.display = alipayVanSelect.value === "__custom__" ? "block" : "none";
+  });
+
+  function getAlipayVanValue(){
+    if (alipayVanSelect.value === "__custom__") return alipayVanCustom.value.trim();
+    return alipayVanSelect.value;
+  }
+
+  function todayIso(){
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  }
+  document.getElementById("signDate").value = todayIso();
+
+  function fileToBase64(file){
+    return new Promise((resolve, reject) => {
+      if (!file){ resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = () => resolve({ name: file.name, mimeType: file.type, base64: reader.result.split(",")[1] });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // 화면에 required 로 표시된 항목을 전부 훑어서 빠짐없이 검증한다.
+  // 새 필수 필드를 추가할 때는 input에 required만 붙이면 여기 코드를 안 건드려도 자동으로 체크된다.
+  function validateRequired(){
+    const textLike = document.querySelectorAll(
+      'input[required][type=text], input[required][type=email], input[required][type=tel]'
+    );
+    for (const el of textLike){
+      if (!el.value.trim()) return { el, msg: "필수 항목을 모두 입력해주세요." };
+    }
+
+    const fileInputs = document.querySelectorAll('input[required][type=file]');
+    for (const el of fileInputs){
+      if (!el.files || el.files.length === 0){
+        const label = el.closest('tr')?.querySelector('th')?.textContent.replace('*','').trim() || "필수 첨부파일";
+        return { el, msg: label + "을(를) 첨부해주세요." };
+      }
+    }
+
+    const allFileInputs = document.querySelectorAll('input[type=file]');
+    for (const el of allFileInputs){
+      const file = el.files && el.files[0];
+      if (file && file.size > MAX_FILE_SIZE_MB * 1024 * 1024){
+        const label = el.closest('tr')?.querySelector('th')?.textContent.replace('*','').trim() || "첨부파일";
+        return { el, msg: label + " 파일 용량은 " + MAX_FILE_SIZE_MB + "MB 이하여야 합니다." };
+      }
+    }
+
+    const radioNames = new Set(
+      [...document.querySelectorAll('input[required][type=radio]')].map(r => r.name)
+    );
+    for (const name of radioNames){
+      if (!document.querySelector(`input[name="${name}"]:checked`)){
+        const el = document.querySelector(`input[name="${name}"]`);
+        return { el, msg: "필수 항목을 선택해주세요." };
+      }
+    }
+
+    return null;
+  }
+
+  async function submitForm(){
+    const statusEl = document.getElementById("statusMsg");
+    statusEl.className = "";
+    statusEl.textContent = "";
+
+    const invalid = validateRequired();
+    if (invalid){
+      statusEl.className = "error";
+      statusEl.textContent = invalid.msg;
+      invalid.el.focus();
+      return;
+    }
+    if (pad.isEmpty()){
+      statusEl.className = "error";
+      statusEl.textContent = "서명을 입력해주세요.";
+      return;
+    }
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    statusEl.textContent = "제출 중입니다...";
+
+    const bizRegFile = document.getElementById("bizRegFile").files[0];
+    const bizRegData = await fileToBase64(bizRegFile);
+    const fpRegData = await fileToBase64(document.getElementById("fpRegFile").files[0]);
+    const logoData = await fileToBase64(document.getElementById("logoFile").files[0]);
+    const wechatQrData = await fileToBase64(document.getElementById("wechatQrFile").files[0]);
+
+    const payload = {
+      companyName: document.getElementById("companyName").value.trim(),
+      ceoName: document.getElementById("ceoName").value.trim(),
+      phone: document.getElementById("phone").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      hoursMon: getDayValue("mon"),
+      hoursTue: getDayValue("tue"),
+      hoursWed: getDayValue("wed"),
+      hoursThu: getDayValue("thu"),
+      hoursFri: getDayValue("fri"),
+      hoursSat: getDayValue("sat"),
+      hoursSun: getDayValue("sun"),
+      hoursHol: getDayValue("hol"),
+      managerName: document.getElementById("managerName").value.trim(),
+      managerPhone: document.getElementById("managerPhone").value.trim(),
+      alipayWant: document.querySelector('input[name="alipayWant"]:checked')?.value || "",
+      alipayJoined: document.querySelector('input[name="alipayJoined"]:checked')?.value || "",
+      alipayVan: getAlipayVanValue(),
+      nameZhCN: document.getElementById("nameZhCN").value.trim(),
+      nameZhTW: document.getElementById("nameZhTW").value.trim(),
+      nameEn: document.getElementById("nameEn").value.trim(),
+      nameJa: document.getElementById("nameJa").value.trim(),
+      accountId: document.getElementById("accountId").value.trim(),
+      msgEnWhatsapp: document.getElementById("msgEnWhatsapp").value.trim(),
+      msgJaLine: document.getElementById("msgJaLine").value.trim(),
+      msgZhTwLine: document.getElementById("msgZhTwLine").value.trim(),
+      msgZhCnWechat: document.getElementById("msgZhCnWechat").value.trim(),
+      wechatQrFile: wechatQrData,
+      signDate: document.getElementById("signDate").value,
+      signerName: document.getElementById("signerName").value.trim(),
+      submittedAt: new Date().toISOString(),
+      bizRegFile: bizRegData,
+      fpRegFile: fpRegData,
+      logoFile: logoData,
+      signature: pad.toDataURL("image/png").split(",")[1],
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+    };
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.ok){
+        statusEl.className = "ok";
+        statusEl.innerHTML = "제출이 완료되었습니다. 감사합니다."
+          + (data.pdfUrl ? '<br><a href="' + data.pdfUrl + '" target="_blank">완성된 계약서 PDF 보기</a>' : "");
+      } else {
+        throw new Error(data.error || "제출 중 오류가 발생했습니다.");
+      }
+    } catch (err){
+      statusEl.className = "error";
+      statusEl.textContent = "제출에 실패했습니다. 잠시 후 다시 시도해주세요. (" + err.message + ")";
+      submitBtn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
