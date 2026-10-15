@@ -544,6 +544,24 @@
 // 영업대행사명 - 구글 드라이브에서 대행사별 폴더로 나뉘어 저장된다. 대행사마다 이 값만 바꾼다.
 const AGENCY_NAME = "__AGENCY_NAME__";
 
+// 페이지 접속 기록 — 열어만 보고 나간 건까지 세기 위해 한 번 신호를 보낸다. 실패해도 화면에는 영향 없음.
+(function logVisit(){
+  try {
+    var vid = sessionStorage.getItem("kbsVid");
+    if (!vid) { vid = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem("kbsVid", vid); }
+    if (sessionStorage.getItem("kbsHit")) return;          // 새로고침으로 중복 기록되지 않게
+    sessionStorage.setItem("kbsHit", "1");
+    new Image().src = SCRIPT_URL
+      + "?hit=1&agency=" + encodeURIComponent(AGENCY_NAME)
+      + "&page=" + encodeURIComponent(location.pathname)
+      + "&vid=" + encodeURIComponent(vid)
+      + "&ref=" + encodeURIComponent(document.referrer || "")
+      + "&lang=" + encodeURIComponent(navigator.language || "")
+      + "&ua=" + encodeURIComponent((navigator.userAgent || "").slice(0, 180));
+  } catch (e) {}
+})();
+
+
   // 서명 펜 스타일 — 필요하면 이 3개 값만 바꾸면 됨
   const PEN_COLOR = "#1a1a1a";
   const PEN_MIN_WIDTH = 0.6;
