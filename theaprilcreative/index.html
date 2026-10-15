@@ -549,8 +549,9 @@ const AGENCY_NAME = "글로뷰티(theaprilcreative)";
   try {
     var vid = sessionStorage.getItem("kbsVid");
     if (!vid) { vid = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem("kbsVid", vid); }
-    if (sessionStorage.getItem("kbsHit")) return;          // 새로고침으로 중복 기록되지 않게
-    sessionStorage.setItem("kbsHit", "1");
+    var hitKey = "kbsHit:" + location.pathname;                   // 대행사 페이지마다 따로 센다
+    if (sessionStorage.getItem(hitKey)) return;          // 새로고침으로 중복 기록되지 않게
+    sessionStorage.setItem(hitKey, "1");
     new Image().src = SCRIPT_URL
       + "?hit=1&agency=" + encodeURIComponent(AGENCY_NAME)
       + "&page=" + encodeURIComponent(location.pathname)
